@@ -161,6 +161,9 @@ def cmd_status(client, args):
 
 
 def cmd_find(client, args):
+    if not args.pattern or not args.pattern.strip():
+        print("Error: Symbol pattern required", file=sys.stderr)
+        return 1
     result = client.find_symbol(args.pattern, args.path, args.body, args.depth, args.deps)
     symbols = result.get("symbols", [])
     if not symbols:
@@ -174,6 +177,9 @@ def cmd_find(client, args):
 
 
 def cmd_refs(client, args):
+    if not args.pattern or not args.pattern.strip():
+        print("Error: Symbol pattern required", file=sys.stderr)
+        return 1
     find_result = client.find_symbol(args.pattern, include_body=False)
     symbols = find_result.get("symbols", [])
     if not symbols:
