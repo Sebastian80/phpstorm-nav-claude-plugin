@@ -1,11 +1,15 @@
 ---
 name: code-nav
 description: "Use when navigating code or refactoring symbols in JetBrains IDEs. Triggers: 'find class', 'find method', 'who calls', 'find usages', 'rename class/method'. Works with all indexed languages."
+context: fork
+agent: Explore
 ---
 
 # code-nav: Code Navigation & Refactoring
 
 **Iron Law:** Code symbol navigation = `code-nav`. Not grep. Not glob. Not serena.
+
+**Return concise summaries.** Do NOT dump raw CLI output - synthesize findings.
 
 Direct HTTP to JetBrains plugin. Zero MCP overhead.
 
