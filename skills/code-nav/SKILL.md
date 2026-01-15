@@ -7,7 +7,7 @@ agent: Explore
 
 # code-nav: Code Navigation & Refactoring
 
-**Iron Law:** Code symbol navigation = `code-nav`. Not grep. Not glob. Not serena.
+**Iron Law:** Code symbol navigation = `code-nav`. Not grep. Not glob.
 
 **Return concise summaries.** Do NOT dump raw CLI output - synthesize findings.
 
@@ -45,11 +45,6 @@ Works with any language indexed by JetBrains IDEs:
 - PHP, JavaScript, TypeScript
 - Python, Go, Java, Kotlin
 - Ruby, Rust, and more
-
-## When NOT to Use
-
-- **Memory persistence** - Use serena
-- **Body replacement edits** - Use serena
 
 ## Red Flags - STOP If Thinking This
 
