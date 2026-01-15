@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/bin/phpstorm-nav setup >/dev/null 2>&1 || true",
+            "command": "${CLAUDE_PLUGIN_ROOT}/bin/code-nav setup >/dev/null 2>&1 || true",
             "async": true,
             "timeout": 10000
           }

@@ -1,10 +1,10 @@
 {
-  "name": "phpstorm-nav",
-  "version": "1.0.0",
-  "description": "Direct CLI for JetBrains Serena Plugin - PHP code navigation and refactoring without MCP overhead",
+  "name": "code-nav",
+  "version": "1.1.0",
+  "description": "Direct CLI for JetBrains Serena Plugin - code navigation and refactoring without MCP overhead",
   "author": {
     "name": "Sebastian"
   },
   "license": "MIT",
-  "keywords": ["php", "phpstorm", "jetbrains", "serena", "navigation", "refactoring"]
+  "keywords": ["jetbrains", "serena", "navigation", "refactoring", "ide"]
 }

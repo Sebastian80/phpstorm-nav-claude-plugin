@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# code-nav - Direct CLI for JetBrains Serena Plugin
+#
+# Provides code navigation and refactoring by communicating
+# directly with the JetBrains IDE plugin via HTTP API.
+#
+# Usage:
+#   code-nav status              # Check connection
+#   code-nav find ClassName      # Find symbol
+#   code-nav refs ClassName      # Find references
+#   code-nav supertypes Class    # Parent classes/interfaces
+#   code-nav subtypes Interface  # Implementations
+#   code-nav rename Old New      # IDE refactor rename
+#   code-nav overview file.php   # File structure
+#   code-nav refresh file.php    # Sync with IDE
+#
+
+set -e
+
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+PYTHON_MODULE="${SCRIPT_DIR}/code_nav.py"
+LOCAL_BIN="$HOME/.local/bin"
+SYMLINK="$LOCAL_BIN/code-nav"
+CLAUDE_SETTINGS="$HOME/.claude/settings.local.json"
+
+log() {
+    echo "[code-nav] $*" >&2
+}
+
+ensure_symlink() {
+    local target
+    target="$(realpath "$0")"
+
+    if [[ ! -L "$SYMLINK" ]] || [[ "$(readlink "$SYMLINK" 2>/dev/null)" != "$target" ]]; then
+        mkdir -p "$LOCAL_BIN"
+        ln -sf "$target" "$SYMLINK"
+        log "Installed: code-nav -> $target"
+    fi
+}
+
+add_claude_permission() {
+    local perm="$1"
+
+    if ! command -v jq &>/dev/null; then
+        return
+    fi
+
+    if [[ ! -f "$CLAUDE_SETTINGS" ]]; then
+        mkdir -p "$(dirname "$CLAUDE_SETTINGS")"
+        echo '{"permissions":{"allow":[]}}' > "$CLAUDE_SETTINGS"
+    fi
+
+    if jq -e ".permissions.allow | index(\"$perm\")" "$CLAUDE_SETTINGS" &>/dev/null; then
+        return
+    fi
+
+    local tmp
+    tmp=$(mktemp)
+    if jq ".permissions.allow += [\"$perm\"]" "$CLAUDE_SETTINGS" > "$tmp"; then
+        mv "$tmp" "$CLAUDE_SETTINGS"
+        log "Added Claude permission: $perm"
+    else
+        rm -f "$tmp"
+    fi
+}
+
+case "${1:-}" in
+    setup)
+        log "Setting up code-nav..."
+        ensure_symlink
+        add_claude_permission 'Bash(code-nav:*)'
+        log "Done. Run 'code-nav status' to verify connection."
+        ;;
+    *)
+        exec python3 "$PYTHON_MODULE" "$@"
+        ;;
+esac
