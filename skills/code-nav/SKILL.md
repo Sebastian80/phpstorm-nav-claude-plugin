@@ -1,8 +1,6 @@
 ---
 name: code-nav
 description: "Use when navigating code or refactoring symbols in JetBrains IDEs. Triggers: 'find class', 'find method', 'who calls', 'find usages', 'rename class/method'. Works with all indexed languages."
-context: fork
-agent: Explore
 ---
 
 # code-nav: Code Navigation & Refactoring
