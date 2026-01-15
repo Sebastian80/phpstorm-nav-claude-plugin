@@ -6,5 +6,8 @@
     "name": "Sebastian"
   },
   "license": "MIT",
-  "keywords": ["jetbrains", "serena", "navigation", "refactoring", "ide"]
+  "keywords": ["jetbrains", "serena", "navigation", "refactoring", "ide"],
+  "skills": [
+    "./skills/code-nav"
+  ]
 }
